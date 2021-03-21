@@ -8,7 +8,7 @@ import { typeDefs } from './typeDefs';
 import path from 'path';
 
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config({path: path.resolve(__dirname, '../../.env')});
+  require('dotenv').config({path: path.resolve(__dirname, '../.env')});
 }
 
 const start = async () => {
@@ -22,7 +22,11 @@ const start = async () => {
 
   server.applyMiddleware({ app });
 
-  await mongoose.connect(`mongodb+srv://admin:${process.env.REACT_APP_MONGODB_ADMIN_PASSWORD}@medical-waypoints.cmomj.mongodb.net/waypointDatabase?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
+  app.get('/', (req, res) => {
+    res.send('Hello!')
+  })
+
+  await mongoose.connect(`mongodb+srv://admin:${process.env.MONGODB_ADMIN_PASSWORD}@medical-waypoints.cmomj.mongodb.net/waypointDatabase?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
 
   app.listen({ port: 5000 }, () => {
     console.log(`Server at http://localhost:5000${server.graphqlPath}`);
