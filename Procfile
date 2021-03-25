@@ -1,1 +1,1 @@
-web: npx babel-node src/index.js
+web: yarn build && yarn prod
